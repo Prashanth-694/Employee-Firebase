@@ -1,5 +1,6 @@
 package com.dev.myroom.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -12,18 +13,23 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dev.myroom.config.FirebaseConfig;
 import com.dev.myroom.entity.Employee;
 import com.dev.myroom.service.EmployeeService;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 
 @RestController
 public class FireBaseController {
 
 	@Autowired
 	EmployeeService employeeService;
-	
+	@Autowired
+	FirebaseConfig firebaseConfig;
 	@PostMapping("insertEmployee")
-	public String insertEmployee(@RequestBody Employee employee) throws InterruptedException, ExecutionException
-	{
+	public String insertEmployee(@RequestBody Employee employee) throws IOException, Exception
+	{ 
 		return employeeService.insertEmployee(employee);
 	}
 	

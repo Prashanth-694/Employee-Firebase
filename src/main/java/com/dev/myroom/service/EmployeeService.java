@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dev.myroom.config.FirebaseConfig;
 import com.dev.myroom.entity.Employee;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.DocumentReference;
@@ -18,8 +20,9 @@ import com.google.firebase.cloud.FirestoreClient;
 
 @Service
 public class EmployeeService {
-
+    
 	public String insertEmployee(Employee employee) throws InterruptedException, ExecutionException {
+		
 		Firestore firestore = FirestoreClient.getFirestore();
 		ApiFuture<WriteResult> apiFuture = firestore.collection("Sample").document(employee.getId()).set(employee);
 		return apiFuture.get().getUpdateTime().toString();
